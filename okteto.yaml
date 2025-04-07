@@ -14,12 +14,13 @@ deploy:
         # get the Deployed Name, ARN and URL of the function 
         HELLO_DEPLOYED_NAME=$(serverless info --json | jq -r '.info.functions[] | select(.name == "hello") | .deployedName')
         HELLO_ARN=$(serverless info --json | jq -r '.outputs[] | select(.OutputKey == "HelloLambdaFunctionQualifiedArn") | .OutputValue')
-        HELLO_URL="https://${AWS_REGION}.console.aws.amazon.com/lambda/home?region=${AWS_REGION}#/functions/${HELLO_DEPLOYED_NAME}?tab=code"
+        HELLO_UI="https://${AWS_REGION}.console.aws.amazon.com/lambda/home?region=${AWS_REGION}#/functions/${HELLO_DEPLOYED_NAME}?tab=code"
         
-        # Pass the values to the OKTETO_ENV so they are included in the UI
-        echo "OKTETO_EXTERNAL_SERVERLESS_ENDPOINTS_ARN_URL=$HELLO_ARN" >> $OKTETO_ENV
-        echo "OKTETO_EXTERNAL_SERVERLESS_ENDPOINTS_WEB_URL=$HELLO_URL" >> $OKTETO_ENV
-
+        # Pass the values to the OKTETO_ENV so they are included in the UI and Resource Notes
+        {
+          echo "OKTETO_EXTERNAL_SERVERLESS_ENDPOINTS_ARN_URL=$HELLO_ARN"
+          echo "OKTETO_EXTERNAL_SERVERLESS_ENDPOINTS_WEB_URL=$HELLO_UI"          
+        }  >> "$OKTETO_ENV"
 test:
   serverless:
     image: $OKTETO_BUILD_SERVERLESS_IMAGE
@@ -42,6 +43,7 @@ destroy:
 external:
   serverless:
     icon: function
+    notes: function/notes.md
     endpoints:
       - name: arn
       - name: web
