@@ -4,6 +4,8 @@ This guide and sample app are meant to show how you can deploy [AWS Lambda Funct
 
 This sample deploys a Lambda function that’s a simple Nodejs function. The deployed function listens at events and responds with a message: `"Go Serverless! Go Okteto!"`.
 
+![Function deployed in Okteto](screenshot.png)
+
 ## Steps To Run This
 
 1.  Configure your AWS Credentials in Okteto. You can use (https://www.okteto.com/docs/admin/cloud-credentials/aws-cloud-credentials/) so that Okteto can create resources in your AWS account. Make sure to give the following permissions to the [IAM role you create](https://www.okteto.com/docs/admin/cloud-credentials/aws-cloud-credentials/#step-2-create-the-iam-role-and-grant-access-to-s3) during the Cloud Credentials setup. This will enable every developer on your team to create AWS Lambda functions without requiring personal credentials.
@@ -23,7 +25,7 @@ You can also set up your AWS credentials as Admin Variables. You need to set the
 1.  Run `okteto deploy` to spin up your development environment as part of which the lambda function and all the necessary resources would automatically be created for your developers.
 
 ## Test the function
-Once the function has been deployed, you can run the `okteto test` command to validate that the function was correctly deployed. Since the test is running in Okteto, you don't need any local configuration other than setting up your `okteto context`. 
+Once the function has been deployed, you can run the `okteto test` command to validate that the function was correctly deployed. Since the test is running in Okteto, you don't need any local configuration other than setting up your `okteto context`.
 
 ## Benefits of Using Okteto and serverlessf framework:
 
