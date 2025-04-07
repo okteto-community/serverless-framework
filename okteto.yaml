@@ -26,10 +26,9 @@ test:
     image: $OKTETO_BUILD_SERVERLESS_IMAGE
     context: function
     commands:
-    - name: test the function
+    - name: test that the function returns the expected message
       command: |
-        serverless info --json | jq -r '.info.functions[] | select(.name == "hello") | .deployedName'
-        serverless invoke --function hello
+        serverless invoke --function hello | jq '{"status_code_valid": (.statusCode == 200), "message_valid": ((.body | fromjson).message == "Go Serverless! Go Okteto!")}'
 
 destroy:
   image: $OKTETO_BUILD_SERVERLESS_IMAGE
