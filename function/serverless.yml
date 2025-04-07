@@ -1,0 +1,15 @@
+service: ${env:OKTETO_NAMESPACE}-hello
+
+frameworkVersion: '4'
+
+
+provider:
+  name: aws
+  stage: dev
+  region: us-west-2
+  runtime: nodejs20.x
+  lambdaHashingVersion: 20201221
+
+functions:
+  hello:
+    handler: handler.hello
